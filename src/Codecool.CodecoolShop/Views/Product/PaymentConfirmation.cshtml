@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Payment Confirmation";
+}
+
+@model Codecool.CodecoolShop.Models.Payment
+
+<div id="paymentConfirmation">
+    <h1>Payment Confirmation</h1>
+    <br/>
+    <p>Your payment was successful.</p>
+    <p>Payment method: @Model.PaymentName</p>
+    <p>Total amount: @Payment.PaymentValue$</p>
+    <p>Thank you for your order!</p>
+    <img id="checkmark" src="/img/checkmark.png">
+</div>

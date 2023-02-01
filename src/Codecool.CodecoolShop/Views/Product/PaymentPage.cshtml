@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Payment";
+}
+@section Scripts{
+    <script src="~/js/payment.js" asp-append-version="true"></script>
+}
+@model Codecool.CodecoolShop.Models.Payment
+
+
+<br/>
+<div class="container" id="payView">
+    <h3>Select payment method:</h3>
+    <form asp-controller="Product" asp-action="PaymentConfirmation" method="post" id="paymentForm">
+        <select id="payment" name="paymentMethod" class="nav-link form-select" aria-label="Default select example" >
+            <option selected>Credit card</option>
+            <option value="Bank transfer">Bank transfer</option>
+            <option value="BLIK">BLIK</option>
+        </select>
+        @* @Html.TextBox("test") *@
+        <div id="paymentContainer"></div>
+        <div id="payArea">
+            <h3>Summary:</h3>
+            <h4>@Payment.PaymentValue$</h4>
+            <br/>
+            <input class="btn btn-primary" id="payButton" type="submit" value="Pay"/>
+        </div>
+        
+    </form>
+    
+</div>
+
+
+

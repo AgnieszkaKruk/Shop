@@ -1,0 +1,89 @@
+﻿@using System.Globalization
+@{
+    ViewData["Title"] = "Cart";
+}
+@section Scripts{
+    <script src="~/js/cart.js" asp-append-version="true"></script>
+}
+
+@model List<Codecool.CodecoolShop.Models.SingleProductInCart>
+
+<script src="https://kit.fontawesome.com/d12283b99a.js" crossorigin="anonymous"></script>
+   
+<div class="container">
+  
+
+    <h1> Your Cart</h1>
+@if (Model != null && Model.Count != 0)
+    
+    {
+        <br />
+        <hr />
+        <h2>Products</h2>
+        
+        <table class="table">
+            <thead>
+
+                <tr class="d-lg-table-row">
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th> </th>
+       
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach(var element in Model)
+                {
+                if (element.product == null)
+
+                {
+                continue;
+                }
+                decimal price =  @element.Value;
+                decimal sum = @element.HowMany * price;
+
+                <tr class="d-lg-table-row">
+                    <td>@element.product.Id</td>
+                    <td>@element.product.Name</td>
+                     
+                    <td><a   asp-controller="Cart" asp-action="Add" asp-route-productID="@element.product.Id" class="btn btn-sm btn-light"> + </a> @element.HowMany
+                
+                    <a  asp-controller="Cart" asp-action="Substract"asp-route-productID="@element.product.Id" class="btn btn-sm btn-light"> - </a></td>
+                    <td>@element.Value</td>
+                    <td>@sum</td>
+                    
+                    <td><a class="nav-link text-dark " asp-area="" asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productID="@element.product.Id">
+    <i class="fa-solid fa-xmark"></i>
+     </a>
+</td>
+                </tr>
+                }
+
+
+            </tbody>
+
+        </table>
+    <h3>Summary</h3>
+    <hr />
+    decimal totalPrice = 0;
+    @foreach(var element in Model)
+        {
+            totalPrice += (@element.HowMany * @element.Value);
+        }
+        <p class="font-weight-bold" id="productsValue">Value of products: @totalPrice </p>
+        <a class="btn btn-primary" type="button" id="cartPaymentButton" asp-area="" asp-controller="Product" asp-action="PaymentPage">Payment</a>  
+    }
+
+    else
+    {
+        <p> Your cart is empty</p>
+    }
+
+
+
+</div>
+
